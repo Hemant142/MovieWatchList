@@ -243,7 +243,7 @@ const HomePage = () => {
               </FormControl>
               <FormControl id="releaseYear" isRequired mt={4}>
                 <FormLabel>Release Year</FormLabel>
-                <Input name="releaseYear" type="date" placeholder='Relese Year' value={newMovie.releaseYear} onChange={handleChange} />
+                <Input name="releaseYear" type="number" placeholder='Relese Year' value={newMovie.releaseYear} onChange={handleChange} />
               </FormControl>
               <FormControl id="genre" isRequired mt={4}>
                 <FormLabel>Genre</FormLabel>
