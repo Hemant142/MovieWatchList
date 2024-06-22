@@ -4,7 +4,7 @@ import { fetchMovies, deleteMovie, toggleWatched, addMovie, editMovie } from '..
 import {
   Box, Button, Grid, GridItem, Heading, Image, Text, Stack, Divider, ButtonGroup, Card, CardBody, CardFooter,
   useColorModeValue, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton,
-  FormControl, FormLabel, Input, Textarea, Select, useDisclosure
+  FormControl, FormLabel, Input, Textarea, Skeleton, useDisclosure
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
@@ -120,7 +120,35 @@ const HomePage = () => {
     }
   };
   
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return (
+    <Box padding={4} textAlign="center">
+      <Heading as="h2" size="lg" mb={6} color={headingColor}>
+        Data is loading from db.json. Please wait. It may take a while.
+      </Heading>
+      <Grid
+        templateColumns={{ base: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)', lg: 'repeat(4, 1fr)' }}
+        gap={6}
+      >
+        {Array(8).fill("").map((_, index) => (
+          <GridItem key={index}>
+            <Card maxW="sm" h="full" boxShadow="lg">
+              <Skeleton height="300px" />
+              <CardBody>
+                <Skeleton height="20px" my="4" />
+                <Skeleton height="20px" my="4" />
+                <Skeleton height="20px" my="4" />
+                <Skeleton height="20px" my="4" />
+                <Skeleton height="20px" my="4" />
+              </CardBody>
+              <CardFooter>
+                <Skeleton height="40px" width="full" />
+              </CardFooter>
+            </Card>
+          </GridItem>
+        ))}
+      </Grid>
+    </Box>
+  );
   if (isError) return <p>Error loading movies.</p>;
   return (
     <Box padding={4}>
@@ -200,7 +228,7 @@ const HomePage = () => {
               </FormControl>
               <FormControl id="releaseYear" isRequired mt={4}>
                 <FormLabel>Release Year</FormLabel>
-                <Input name="releaseYear" type="number" placeholder='Relese Year' value={newMovie.releaseYear} onChange={handleChange} />
+                <Input name="releaseYear" type="number" placeholder='Release Year' value={newMovie.releaseYear} onChange={handleChange} />
               </FormControl>
               <FormControl id="genre" isRequired mt={4}>
                 <FormLabel>Genre</FormLabel>
@@ -212,7 +240,7 @@ const HomePage = () => {
               </FormControl>
               <FormControl id="review" mt={4}>
                 <FormLabel>Review</FormLabel>
-                <Textarea name="review"  value={newMovie.review} onChange={handleChange} />
+                <Textarea name="review" value={newMovie.review} onChange={handleChange} />
               </FormControl>
               <FormControl id="image" mt={4}>
                 <FormLabel>Image URL</FormLabel>
@@ -243,7 +271,7 @@ const HomePage = () => {
               </FormControl>
               <FormControl id="releaseYear" isRequired mt={4}>
                 <FormLabel>Release Year</FormLabel>
-                <Input name="releaseYear" type="number" placeholder='Relese Year' value={newMovie.releaseYear} onChange={handleChange} />
+                <Input name="releaseYear" type="number" placeholder='Release Year' value={newMovie.releaseYear} onChange={handleChange} />
               </FormControl>
               <FormControl id="genre" isRequired mt={4}>
                 <FormLabel>Genre</FormLabel>
@@ -251,7 +279,7 @@ const HomePage = () => {
               </FormControl>
               <FormControl id="rating" mt={4}>
                 <FormLabel>Rating</FormLabel>
-                <Input name="rating" type="number"placeholder='Rating'  value={newMovie.rating} onChange={handleChange} />
+                <Input name="rating" type="number" placeholder='Rating' value={newMovie.rating} onChange={handleChange} />
               </FormControl>
               <FormControl id="review" mt={4}>
                 <FormLabel>Review</FormLabel>
@@ -259,7 +287,7 @@ const HomePage = () => {
               </FormControl>
               <FormControl id="image" mt={4}>
                 <FormLabel>Image URL</FormLabel>
-                <Input name="image" placeholder='Image URL' value={newMovie.image} onChange={handleChange} />
+                <Input name="image" value={newMovie.image} placeholder='Image URL' onChange={handleChange} />
               </FormControl>
               <Button mt={4} colorScheme="blue" type="submit">
                 Save Changes
